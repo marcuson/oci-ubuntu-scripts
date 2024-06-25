@@ -34,6 +34,8 @@ DOCKER_CUSTOM_BRIDGE_F="$SCRIPT_D/scripts/docker_custom_bridge.sh"
 DOCKER_LOGIN_F="$SCRIPT_D/scripts/docker_login.sh"
 JOURNAL_LIMIT_F="$SCRIPT_D/scripts/journal_limit.sh"
 NANO_SYNTAX_HIGHLIGHTING_F="$SCRIPT_D/scripts/nano_syntax_highlighting.sh"
+NETWORK_ROUTING_F="$SCRIPT_D/scripts/network_routing.sh"
+NETWORK_SRC_VALID_MARK_F="$SCRIPT_D/scripts/network_src_valid_mark.sh"
 SSH_PREPARE_F="$SCRIPT_D/scripts/ssh_prepare.sh"
 SWAPPINESS_F="$SCRIPT_D/scripts/swappiness.sh"
 USER_GROUPS_F="$SCRIPT_D/scripts/user_groups.sh"
@@ -138,6 +140,20 @@ elif [[ "$helper_f_content" == "0" ]]; then
         # shellcheck source=scripts/nano_syntax_highlighting.sh
         . "$NANO_SYNTAX_HIGHLIGHTING_F"
         enableNanoSyntaxHighlighting || exit 2
+    fi
+
+    # Network - enable routing
+    if checkInitConfig "OUI_ENABLE_NETWORK_ROUTING"; then
+        # shellcheck source=scripts/network_routing.sh
+        . "$NETWORK_ROUTING_F"
+        enableRouting
+    fi
+
+    # Network - enable src valid mark
+    if checkInitConfig "OUI_ENABLE_NETWORK_SRC_VALID_MARK"; then
+        # shellcheck source=scripts/network_src_valid_mark.sh
+        . "$NETWORK_SRC_VALID_MARK_F"
+        enableNetSrcValidMark
     fi
 
     # SSH - prepare

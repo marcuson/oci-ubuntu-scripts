@@ -20,7 +20,7 @@ enablePasswordlessSudo() {
 
     if [ -f "$sudoers_f" ]; then
         echo >&2 "$sudoers_f file already exists, please check"
-        return 1
+        return 0
     fi
 
     echo "$OUI_USER ALL=(ALL) NOPASSWD: ALL" | tee "$sudoers_f" >/dev/null
